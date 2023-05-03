@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Dashboard</h1>
+        <div class="form-group">
+            <label for="series">Select data series:</label>
+            <select class="form-control" id="series" onchange="fetchData()">
+                <option value="">Choose a series...</option>
+                <option value="CM_HAM_DO_AI1/Temp_value">Temperature (Celsius)</option>
+                <option value="CM_HAM_PH_AI1/pH_value">pH</option>
+                <option value="CM_PID_DO/Process_DO">Distilled Oxygen (%)</option>
+                <option value="CM_PRESSURE/Output">Pressure (psi)</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="start-date">Start date:</label>
+                    <input type="date" class="form-control" id="start-date" onchange="fetchData()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="end-date">End date:</label>
+                    <input type="date" class="form-control" id="end-date" onchange="fetchData()">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="start-time">Start time:</label>
+                    <input type="time" class="form-control" id="start-time" onchange="fetchData()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="end-time">End time:</label>
+                    <input type="time" class="form-control" id="end-time" onchange="fetchData()">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-primary" onclick="fetchData()">Refresh</button>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn btn-secondary" id="download-data-as-csv">Download as CSV</button>
+            </div>
+        </div>
+        <div id="plot"></div>
+    </div>
+
+    <script>
+        // Fetch data based on user selections
+        function fetchData() {
+            let series = $("#series").val();
+            let start_date = $("#start-date").val();
+            let start_time = $("#start-time").val();
+            let end_date = $("#end-date").val();
+            let end_time = $("#end-time").val();
+
+            if (series === "") {
+                $("#plot").html("");
+                return;
+            }
+            
+            // Perform AJAX GET request to fetch data
+            $.get("/data", {
+                series: series,
+                start_date: start_date,
+                start_time: start_time,
+                end_date: end_date,
+                end_time: end_time
+            }, function(data) {
+                Plotly.newPlot("plot", data.data, data.layout);
+            }).fail(function() {
+                alert("Failed to fetch data.");
+            });
+        }
+
+        // Set interval to automatically refresh data every 60 seconds
+        setInterval(fetchData, 60000);
+
+        // Download data as CSV
+        function downloadDataAsCSV() {
+            let series = $("#series").val();
+            let start_date = $("#start-date").val();
+            let start_time = $("#start-time").val();
+            let end_date = $("#end-date").val();
+            let end_time = $("#end-time").val();
+
+            if (series === "") {
+                alert("Please select a data series.");
+                return;
+            }
+
+            let url = `/download_csv?series=${series}&start_date=${start_date}&start_time=${start_time}&end_date=${end_date}&end_time=${end_time}`;
+            window.location.href = url;
+        }
+
+        // Add click event listener to the "Download as CSV" button
+        $("#download-data-as-csv").click(downloadDataAsCSV);
+    </script>
+</body>
+</html>
+
