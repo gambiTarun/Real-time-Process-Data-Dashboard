@@ -34,9 +34,9 @@ To run the project locally:
 2. Clone the project repository to your local system.
 3. Navigate to the project directory.
 4. Open a terminal and run the command 
-'''
+```
 docker compose up
-'''
+```
 5. Access the dashboard in your web browser at http://localhost:8888.
 
 ## Summary
