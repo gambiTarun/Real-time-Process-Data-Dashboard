@@ -30,8 +30,7 @@ An example can be found in `local.env`. Note that these will be subject to chang
 ## The data
 
 The tables in the database:
-```
-brx1=# \dt
+
                       List of relations
  Schema |           Name           | Type  |      Owner       
 --------+--------------------------+-------+------------------
@@ -39,17 +38,14 @@ brx1=# \dt
  public | CM_HAM_PH_AI1/pH_value   | table | process_trending
  public | CM_PID_DO/Process_DO     | table | process_trending
  public | CM_PRESSURE/Output       | table | process_trending
- ```
 
 Each table has the same schema, like so:
-```
-brx1=# \d public."CM_HAM_DO_AI1/Temp_value"
-                Table "public.CM_HAM_DO_AI1/Temp_value"
+
  Column |            Type             | Collation | Nullable | Default 
 --------+-----------------------------+-----------+----------+---------
  time   | timestamp without time zone |           |          | 
  value  | double precision            |           |          | 
-```
+
 
 Each table contains the following data:
 | Table                    | Name             | Units   |
