@@ -31,23 +31,25 @@ An example can be found in `local.env`. Note that these will be subject to chang
 
 The tables in the database:
 
-                      List of relations
- Schema |           Name           | Type  |      Owner       
---------+--------------------------+-------+------------------
- public | CM_HAM_DO_AI1/Temp_value | table | process_trending
- public | CM_HAM_PH_AI1/pH_value   | table | process_trending
- public | CM_PID_DO/Process_DO     | table | process_trending
- public | CM_PRESSURE/Output       | table | process_trending
+List of relations:
+
+| Schema |           Name           | Type  |      Owner       |
+|--------|--------------------------|-------|------------------|
+| public | CM_HAM_DO_AI1/Temp_value | table | process_trending |
+| public | CM_HAM_PH_AI1/pH_value   | table | process_trending |
+| public | CM_PID_DO/Process_DO     | table | process_trending |
+| public | CM_PRESSURE/Output       | table | process_trending |
 
 Each table has the same schema, like so:
 
- Column |            Type             | Collation | Nullable | Default 
---------+-----------------------------+-----------+----------+---------
- time   | timestamp without time zone |           |          | 
- value  | double precision            |           |          | 
+| Column |            Type             | Collation | Nullable | Default |
+|--------|-----------------------------|-----------|----------|---------|
+| time   | timestamp without time zone |           |          |         |
+| value  | double precision            |           |          |         |
 
 
 Each table contains the following data:
+
 | Table                    | Name             | Units   |
 |--------------------------|------------------|---------|
 | CM_HAM_DO_AI1/Temp_value | Temperature      | Celsius |
