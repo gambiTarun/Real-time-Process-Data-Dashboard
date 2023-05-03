@@ -81,6 +81,8 @@ docker compose up
 ```
 5. Access the dashboard in your web browser at http://localhost:8888.
 
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/22619455/236039811-9944182f-15df-42f0-b73c-e9b57eb2d4d6.png">
+
 ## Summary
 
 The real-time process data dashboard provides an efficient way to monitor and analyze key process variables in a bioreactor. By visualizing the data in an interactive dashboard, users can gain insights and make informed decisions. This project demonstrates proficiency in Python, web development, and data visualization techniques.
